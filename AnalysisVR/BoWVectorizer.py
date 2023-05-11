@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -55,5 +54,8 @@ class BoWVectorizerCustom(BaseEstimator, TransformerMixin):
         print("Top 10 vacancies:")
         top_vacancies_bow['resume_url'] = resume_df.get('link')[0]
         top_vacancies_bow['tittle_resume'] = resume_df.get('name')[0]
-        print(top_vacancies_bow[['id', 'name', 'similarity', 'tittle_resume','title_similarity', 'alternate_url', 'resume_url']])
-        return top_vacancies_bow[['id', 'name', 'similarity', 'tittle_resume','title_similarity', 'alternate_url', 'resume_url']]
+        top_vacancies_bow = top_vacancies_bow[['id', 'name', 'similarity', 'tittle_resume','title_similarity', 'alternate_url', 'resume_url']]
+        print(top_vacancies_bow)
+        top_vacancies_bow = top_vacancies_bow[['name', 'similarity', 'tittle_resume', 'alternate_url', 'resume_url']]
+        top_vacancies_bow.to_csv('./AnalysisVR/bd_bot/bowords.csv')
+        return top_vacancies_bow

@@ -56,5 +56,8 @@ class TfidfVectorizerCustom(BaseEstimator, TransformerMixin,):
         print("Top 10 vacancies:")
         top_vacancies['resume_url'] = resume_df.get('link')[0]
         top_vacancies['tittle_resume'] = resume_df.get('name')[0]
-        print(top_vacancies[['id', 'name', 'similarity', 'tittle_resume','title_similarity', 'alternate_url', 'resume_url']])
-        return  top_vacancies[['id', 'name', 'similarity', 'tittle_resume','title_similarity', 'alternate_url', 'resume_url']]
+        top_vacancies = top_vacancies[['id', 'name', 'similarity', 'tittle_resume','title_similarity', 'alternate_url', 'resume_url']]
+        print(top_vacancies)
+        top_vacancies = top_vacancies[['name', 'similarity', 'tittle_resume', 'alternate_url', 'resume_url']]
+        top_vacancies.to_csv('./AnalysisVR/bd_bot/tfidf.csv')
+        return top_vacancies

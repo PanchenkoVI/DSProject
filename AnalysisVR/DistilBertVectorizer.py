@@ -70,22 +70,19 @@ class DistilBertVectorizer:
         # vacancy_title_embeddings = self.generate_embeddings(vacancies_df['name'].tolist())
         # resume_title_embeddings = self.generate_embeddings(resume_df['name'].tolist())
 
-        alpha = 0.9
+        alpha = 0.2
         vacancy_embeddings = alpha * normalize(vacancy_desc_embeddings) + (1 - alpha) * normalize(vacancy_title_embeddings)
         resume_embeddings = alpha * normalize(resume_desc_embeddings) + (1 - alpha) * normalize(resume_title_embeddings)
-
-        # вычислить косинусную близость между резюме и вакансиями
         cos_sim = cosine_similarity(resume_embeddings, vacancy_embeddings)
-
-        # получить индексы вакансий с наивысшей близостью
         top_vacancy_indices = cos_sim.argsort()[0][::-1][:10]
-
-        # получить данные о лучших вакансиях
         top_vacancies = vacancies_df.loc[top_vacancy_indices].reset_index(drop=True)
         top_vacancies = top_vacancies.assign(similarity=cos_sim[0][top_vacancy_indices])
 
         print("Top 10 vacancies:")
         top_vacancies['resume_url'] = resume_df.get('link')[0]
         top_vacancies['tittle_resume'] = resume_df.get('name')[0]
-        print(top_vacancies[['id', 'name', 'similarity', 'tittle_resume', 'alternate_url', 'resume_url']])
-        return top_vacancies[['id', 'name', 'similarity', 'tittle_resume', 'alternate_url', 'resume_url']]
+        top_vacancies = top_vacancies[['id', 'name', 'similarity', 'tittle_resume', 'alternate_url', 'resume_url']]
+        print(top_vacancies)
+        top_vacancies = top_vacancies[['name', 'similarity', 'tittle_resume', 'alternate_url', 'resume_url']]
+        top_vacancies.to_csv('./AnalysisVR/bd_bot/distilbert.csv')
+        return top_vacancies

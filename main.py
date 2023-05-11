@@ -12,9 +12,7 @@ from Preprocessor.TextPreprocessor import TextPreprocessor
 from AnalysisVR.TfidfVectorizer import TfidfVectorizerCustom
 from AnalysisVR.BoWVectorizer import BoWVectorizerCustom
 from AnalysisVR.Word2VecVectorizer import Word2VecVectorizer
-# from AnalysisVR.DistilBertVectorizer import DistilBertVectorizer
-
-from RESTService import RESTService
+from AnalysisVR.DistilBertVectorizer import DistilBertVectorizer
 
 class Main:
     def __init__(self):
@@ -175,31 +173,27 @@ class Main:
             except:
                 print('Error: Допущена ошибка в модели w2v.')
                 flag = -20
-        # if self.args.load_model == 'dbert':
-        #     try:
-        #         dbert = DistilBertVectorizer()
-        #         dbert.main()
-        #         flag = flag + 1
-        #     except:
-        #         print('Error: Допущена ошибка в модели dbert.')
-        #         flag = -20
-
-        # if self.args.rest_api == 'now':
-            # try:
-            # rest_api = RESTService()
-                # rest_api.run()
-                # flag = flag + 1
-            # except:
-            #     print('Error: Была допущена ошибка в rest_api.')
-            #     flag = -20
+        if self.args.load_model == 'dbert':
+            try:
+                dbert = DistilBertVectorizer()
+                dbert.main()
+                flag = flag + 1
+            except:
+                print('Error: Допущена ошибка в модели dbert.')
+                flag = -20
         if flag == 0:
             print("Неверный аргумент командной строки.")
             print("Введите:\n\t'python3 main.py --load_vacancy all' - если хотете скачать вакансии с сайта hh.ru.")
             print("\t'python3 main.py --load_resume one' - если хотите скачать только одно резюме.")
             print("\t'python3 main.py --load_resume more' - если хотите скачать больше одного резюме.")
-            print("\t'python3 main.py --text_preprocessor one_resume' - если хотите скачать больше одного резюме.")
-            print("\t'python3 main.py --text_preprocessor more_resumes' - если хотите скачать больше одного резюме.")
-            print("\t'python3 main.py --text_preprocessor vacancyes' - если хотите скачать больше одного резюме.")
+            print("\t'python3 main.py --text_preprocessor one_resume' - для предобработки одного резюме.")
+            print("\t'python3 main.py --text_preprocessor more_resumes' - для предобработки множества резюме.")
+            print("\t'python3 main.py --text_preprocessor vacancyes' - для предобработки множества вакансий.")
+            print("\t'python3 main.py --load_model tfidf' - для обучение модели Tfidf.")
+            print("\t'python3 main.py --load_model bow' - для обучение модели BoW.")
+            print("\t'python3 main.py --load_model w2v' - для обучение модели Word2Vec.")
+            print("\t'python3 main.py --load_model dbert' - для обучение модели DistilBert.")
+            print("\t'sh bot_run.sh' - для активации телеграмбота.")
         elif flag < 0:
             print('Ранее была допущена ошибка. Не все вызванные шаги были выполнены. Необходимо исправить ошибки.')
 
@@ -209,7 +203,7 @@ class Main:
         parser.add_argument('--load_resume', default='Null', type=str, help="Enter 'one' or 'more' depending on how many summary you want to see.")
         parser.add_argument('--text_preprocessor', default='Null', type=str, help="Word processing. You must select a flag: 'one_resume', 'more_resumes' or 'vacancyes'.")
         parser.add_argument('--load_model', default='Null', type=str, help="You must select a model: 'tfidf', 'bow' or 'w2v'.")
-        parser.add_argument('--rest_api', default='Null', type=str, help="You must select a model for api: 'tfidf', 'bow' or 'w2v'.")
+        parser.add_argument('--telegrambot', default='Null', type=str, help="You must select a model for api: 'tfidf', 'bow' or 'w2v'.")
         self.args = parser.parse_args()
 
     def main(self):
@@ -217,5 +211,19 @@ class Main:
         self.check_values() # обработка флагов и вызов сторонних команд/классов
 
 if __name__ == "__main__":
-    main_instance = Main()
-    main_instance.main()
+    try:
+        main_instance = Main()
+        main_instance.main()
+    except:
+        print("Неверный аргумент командной строки.")
+        print("Введите:\n\t'python3 main.py --load_vacancy all' - если хотете скачать вакансии с сайта hh.ru.")
+        print("\t'python3 main.py --load_resume one' - если хотите скачать только одно резюме.")
+        print("\t'python3 main.py --load_resume more' - если хотите скачать больше одного резюме.")
+        print("\t'python3 main.py --text_preprocessor one_resume' - для предобработки одного резюме.")
+        print("\t'python3 main.py --text_preprocessor more_resumes' - для предобработки множества резюме.")
+        print("\t'python3 main.py --text_preprocessor vacancyes' - для предобработки множества вакансий.")
+        print("\t'python3 main.py --load_model tfidf' - для обучение модели Tfidf.")
+        print("\t'python3 main.py --load_model bow' - для обучение модели BoW.")
+        print("\t'python3 main.py --load_model w2v' - для обучение модели Word2Vec.")
+        print("\t'python3 main.py --load_model dbert' - для обучение модели DistilBert.")
+        print("\t'sh bot_run.sh' - для активации телеграмбота.")
