@@ -82,7 +82,6 @@ class Main:
                 self.vacancy_resume_all.main()
                 print('Резюме успешно сохранились.')
                 return 1
-                break
             except:
                 print('Error: Ошибка в load_resume_more.')
                 return -20
@@ -189,10 +188,10 @@ class Main:
             print("\t'python3 main.py --text_preprocessor one_resume' - для предобработки одного резюме.")
             print("\t'python3 main.py --text_preprocessor more_resumes' - для предобработки множества резюме.")
             print("\t'python3 main.py --text_preprocessor vacancyes' - для предобработки множества вакансий.")
-            print("\t'python3 main.py --load_model tfidf' - для обучение модели Tfidf.")
-            print("\t'python3 main.py --load_model bow' - для обучение модели BoW.")
-            print("\t'python3 main.py --load_model w2v' - для обучение модели Word2Vec.")
-            print("\t'python3 main.py --load_model dbert' - для обучение модели DistilBert.")
+            print("\t'python3 main.py --load_model tfidf' - для запуска модели Tfidf.")
+            print("\t'python3 main.py --load_model bow' - для запуска модели BoW.")
+            print("\t'python3 main.py --load_model w2v' - для запуска модели Word2Vec.")
+            print("\t'python3 main.py --load_model dbert' - для запуска модели DistilBert.")
             print("\t'sh bot_run.sh' - для активации телеграмбота.")
         elif flag < 0:
             print('Ранее была допущена ошибка. Не все вызванные шаги были выполнены. Необходимо исправить ошибки.')
@@ -222,8 +221,8 @@ if __name__ == "__main__":
         print("\t'python3 main.py --text_preprocessor one_resume' - для предобработки одного резюме.")
         print("\t'python3 main.py --text_preprocessor more_resumes' - для предобработки множества резюме.")
         print("\t'python3 main.py --text_preprocessor vacancyes' - для предобработки множества вакансий.")
-        print("\t'python3 main.py --load_model tfidf' - для обучение модели Tfidf.")
-        print("\t'python3 main.py --load_model bow' - для обучение модели BoW.")
-        print("\t'python3 main.py --load_model w2v' - для обучение модели Word2Vec.")
-        print("\t'python3 main.py --load_model dbert' - для обучение модели DistilBert.")
-        print("\t'sh bot_run.sh' - для активации телеграмбота.")
+        print("\t'python3 main.py --load_model tfidf' - для запуска модели Tfidf.")
+        print("\t'python3 main.py --load_model bow' - для запуска модели BoW.")
+        print("\t'python3 main.py --load_model w2v' - для запуска модели Word2Vec.")
+        print("\t'python3 main.py --load_model dbert' - для запуска модели DistilBert.")
+        print("\t'sh bot_run.sh' - для активации телеграм-бота.")
