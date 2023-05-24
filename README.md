@@ -34,17 +34,22 @@ https://gorodrabot.ru/resume/0000000
 Для предобработки множества резюме.
 Этими командами привожу к нормальному виду csv файлы, а именно: привожу к начальный виду слова в нижнем регистре, убираю спец. символы верстки и стоп-слов, а в конце возвращаю строку с обработанными словами из описаний.
 
- ### python3 main.py --text_preprocessor vacancyes - для предобработки множества вакансий.
+ ### python3 main.py --text_preprocessor vacancyes 
+Для предобработки множества вакансий.
 Тоже самое выполняю с файлом вакансий.
 
- #### python3 main.py --load_model tfidf - для запуска модели Tfidf.
- #### python3 main.py --load_model bow - для запуска модели BoW.
- #### python3 main.py --load_model w2v - для запуска модели Word2Vec.
- ### python3 main.py --load_model dbert - для запуска модели DistilBert.
+ #### python3 main.py --load_model tfidf 
+ Для запуска модели Tfidf.
+ #### python3 main.py --load_model bow 
+ Для запуска модели BoW.
+ #### python3 main.py --load_model w2v
+ Для запуска модели Word2Vec.
+ ### python3 main.py --load_model dbert 
+ Для запуска модели DistilBert.
 Вывод прописывается в консоли.
 
-Для запуска бота:
-###  sh bot_run.sh - для активации телеграмбота.
+###  sh bot_run.sh 
+Для активации телеграмбота.
 В телеграмме необходимо в канале DSProject вбить команду:
 ### /start 
 После бот предложит посмотреть результаты любой из 4х моделей вакансий.
