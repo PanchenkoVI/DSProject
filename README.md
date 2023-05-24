@@ -11,37 +11,42 @@
 7. Выведение Топ-10 наиболее релевантных.
 8. С помощью телеграм бота вывод результатов на экран.
 
-### Основные команды в консоли:
-  python3 main.py --load_vacancy all - если хотете скачать вакансии с сайта hh.ru. 
+## Основные команды в консоли:
+### python3 main.py --load_vacancy all 
+Если хотете скачать вакансии с сайта hh.ru. 
 Необходимо указать номера специальности(ей). 
 В классе Main имеется шпаргалка номеров и их значений.
 Поиск осуществляется через API hh.ru.
 
-  python3 main.py --load_resume one - если хотите скачать только одно резюме.
+### python3 main.py --load_resume one 
+Если хотите скачать только одно резюме.
 Необходимо указать ссылку на резюме например:
 https://gorodrabot.ru/resume/0000000
 Для получения резюме используется парсер веб-страницы.
 
-  python3 main.py --load_resume more - если хотите скачать больше одного резюме.
+### python3 main.py --load_resume more 
+Если хотите скачать больше одного резюме.
 Через запятую необходимо выбрать несколько названий специальностей, а также после будет предложено выбрать количество страниц с сайта для скачивания. 
 
-  python3 main.py --text_preprocessor one_resume - для предобработки одного резюме.
-  python3 main.py --text_preprocessor more_resumes - для предобработки множества резюме.
+###  python3 main.py --text_preprocessor one_resume 
+Для предобработки одного резюме.
+###  python3 main.py --text_preprocessor more_resumes 
+Для предобработки множества резюме.
 Этими командами привожу к нормальному виду csv файлы, а именно: привожу к начальный виду слова в нижнем регистре, убираю спец. символы верстки и стоп-слов, а в конце возвращаю строку с обработанными словами из описаний.
 
-  python3 main.py --text_preprocessor vacancyes - для предобработки множества вакансий.
+ ### python3 main.py --text_preprocessor vacancyes - для предобработки множества вакансий.
 Тоже самое выполняю с файлом вакансий.
 
-  python3 main.py --load_model tfidf - для запуска модели Tfidf.
-  python3 main.py --load_model bow - для запуска модели BoW.
-  python3 main.py --load_model w2v - для запуска модели Word2Vec.
-  python3 main.py --load_model dbert - для запуска модели DistilBert.
+ #### python3 main.py --load_model tfidf - для запуска модели Tfidf.
+ #### python3 main.py --load_model bow - для запуска модели BoW.
+ #### python3 main.py --load_model w2v - для запуска модели Word2Vec.
+ ### python3 main.py --load_model dbert - для запуска модели DistilBert.
 Вывод прописывается в консоли.
 
 Для запуска бота:
-  sh bot_run.sh - для активации телеграмбота.
+###  sh bot_run.sh - для активации телеграмбота.
 В телеграмме необходимо в канале DSProject вбить команду:
-/start 
+### /start 
 После бот предложит посмотреть результаты любой из 4х моделей вакансий.
 
 ### Важно! 
