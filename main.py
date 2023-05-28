@@ -27,48 +27,51 @@ class Main:
         self.args = np.nan
 
     def load_vacancy_all(self):
-        while True:
-            print("Введите номера категорий через запятую:")
-            inp = input()
-            numbers = inp.split(',')
-            for num in numbers:
-                if not str(num).strip().isdigit():
-                    print(
-                        f"Ошибка! Введена неправильная строка чисел.\n Необходимо написать через запятую номера категорий из следующего списка:\n{self.str_help}")
-                    return -20
-            else:
-                num = map(int, numbers)
-                if 0 in num:
-                    exit(1)
-                numeric_list = set(num)
-                numbers = re.findall(r'\d+', self.str_help)
-                numbers = [int(num) for num in numbers]
-                if numeric_list == set(numbers):
-                    self.vacancy_loader = VacancyLoader(numeric_list)
-                    self.vacancy_loader.main()
-                    return 1
+        try:
+            while True:
+                print("Введите номера категорий через запятую:")
+                inp = input()
+                numbers = inp.split(',')
+                for num in numbers:
+                    if not str(num).strip().isdigit():
+                        print(
+                            f"Ошибка! Введена неправильная строка чисел.\n Необходимо написать через запятую номера категорий из следующего списка:\n{self.str_help}")
+                        return -20
                 else:
-                    print(
-                        f'Таких категорий вакансий нет. {self.str_help}\n\nНеобходимо написать через запятую номера категорий из вышеуказанного списка.')
-                    continue
+                    num = list(map(int, numbers))
+                    if 0 in num:
+                        return 1
+                    numeric_list = list(set(num))
+                    numbers = re.findall(r'\d+', self.str_help)
+                    numbers = [int(num) for num in numbers]
+                    if all(elem in numbers for elem in numeric_list):
+                        self.vacancy_loader = VacancyLoader(numeric_list)
+                        self.vacancy_loader.main()
+                        print('Вакансии успешно сохранились.')
+                        return 1
+                    else:
+                        print(f"Ошибка! Введена неправильная строка чисел.")
+        except:
+            print('Error: Ошибка в load_vacancy_all.')
 
     def load_resume_one(self):
-        while True:
-            print('Введите ссылку на резюме с сайта gorodrabot.ru:')
-            # https://gorodrabot.ru/resume/5334430 java
-            url_str = str(input())
-            if 'exit' in url_str:
-                exit(1)
-            match = re.match(r'^(https?://)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*/?$', url_str)
-            if match:
-                self.vacancy_resume = resume_one(f'{url_str}')
-                self.vacancy_resume = self.vacancy_resume.main()
-                print('Резюме успешно сохранилось.')
-                return 1
-            else:
-                print(
-                    "Вы указали не корректную ссылку на резюме.\nВведите правильную ссылку или введите\'exit\' для выхода.")
-                # return -20
+        try:
+            while True:
+                print('Введите ссылку на резюме с сайта gorodrabot.ru:')
+                # https://gorodrabot.ru/resume/5334430 java
+                url_str = str(input())
+                if '0' in url_str:
+                    return 0
+                match = re.match(r'^(https?://)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*/?$', url_str)
+                if match:
+                    self.vacancy_resume = resume_one(f'{url_str}')
+                    self.vacancy_resume = self.vacancy_resume.main()
+                    print('Резюме успешно сохранилось.')
+                    return 1
+                else:
+                    print("\n\nError : Вы указали не корректную ссылку на резюме.\nВведите правильную ссылку или введите 0 для выхода.")
+        except:
+            print('Error: Ошибка в load_resume_one.')
 
     def load_resume_more(self):
         while True:
@@ -84,7 +87,7 @@ class Main:
                 return 1
             except:
                 print('Error: Ошибка в load_resume_more.')
-                return -20
+                return 0
 
     def text_preprocessor_one_resume(self):
         while True:
@@ -117,7 +120,7 @@ class Main:
                 return 1
             except:
                 print('Error: Ошибка в text_preprocessor_more_resumes.')
-                return -20
+                return 0
 
     def text_preprocessor_vacancyes(self):
         while True:
@@ -132,7 +135,7 @@ class Main:
                 return 1
             except:
                 print('Error: Ошибка в text_preprocessor_vacancyes.')
-                return -20
+                return 0
 
     def check_values(self):
         flag = 0
@@ -180,21 +183,8 @@ class Main:
             except:
                 print('Error: Допущена ошибка в модели dbert.')
                 flag = -20
-        if flag == 0:
-            print("Неверный аргумент командной строки.")
-            print("Введите:\n\t'python3 main.py --load_vacancy all' - если хотете скачать вакансии с сайта hh.ru.")
-            print("\t'python3 main.py --load_resume one' - если хотите скачать только одно резюме.")
-            print("\t'python3 main.py --load_resume more' - если хотите скачать больше одного резюме.")
-            print("\t'python3 main.py --text_preprocessor one_resume' - для предобработки одного резюме.")
-            print("\t'python3 main.py --text_preprocessor more_resumes' - для предобработки множества резюме.")
-            print("\t'python3 main.py --text_preprocessor vacancyes' - для предобработки множества вакансий.")
-            print("\t'python3 main.py --load_model tfidf' - для запуска модели Tfidf.")
-            print("\t'python3 main.py --load_model bow' - для запуска модели BoW.")
-            print("\t'python3 main.py --load_model w2v' - для запуска модели Word2Vec.")
-            print("\t'python3 main.py --load_model dbert' - для запуска модели DistilBert.")
-            print("\t'sh bot_run.sh' - для активации телеграмбота.")
-        elif flag < 0:
-            print('Ранее была допущена ошибка. Не все вызванные шаги были выполнены. Необходимо исправить ошибки.')
+        if flag < 0:
+            print('Ранее была допущена ошибка. Не все вызванные шаги были выполнены.')
 
     def parser(self):
         parser = argparse.ArgumentParser()
@@ -206,23 +196,12 @@ class Main:
         self.args = parser.parse_args()
 
     def main(self):
-        self.parser() # парсер флагов в командной строке
-        self.check_values() # обработка флагов и вызов сторонних команд/классов
+        self.parser()
+        self.check_values()
 
 if __name__ == "__main__":
     try:
         main_instance = Main()
         main_instance.main()
     except:
-        print("Неверный аргумент командной строки.")
-        print("Введите:\n\t'python3 main.py --load_vacancy all' - если хотете скачать вакансии с сайта hh.ru.")
-        print("\t'python3 main.py --load_resume one' - если хотите скачать только одно резюме.")
-        print("\t'python3 main.py --load_resume more' - если хотите скачать больше одного резюме.")
-        print("\t'python3 main.py --text_preprocessor one_resume' - для предобработки одного резюме.")
-        print("\t'python3 main.py --text_preprocessor more_resumes' - для предобработки множества резюме.")
-        print("\t'python3 main.py --text_preprocessor vacancyes' - для предобработки множества вакансий.")
-        print("\t'python3 main.py --load_model tfidf' - для запуска модели Tfidf.")
-        print("\t'python3 main.py --load_model bow' - для запуска модели BoW.")
-        print("\t'python3 main.py --load_model w2v' - для запуска модели Word2Vec.")
-        print("\t'python3 main.py --load_model dbert' - для запуска модели DistilBert.")
-        print("\t'sh bot_run.sh' - для активации телеграм-бота.")
+        exit(-1)

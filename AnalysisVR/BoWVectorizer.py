@@ -58,4 +58,5 @@ class BoWVectorizerCustom(BaseEstimator, TransformerMixin):
         print(top_vacancies_bow)
         top_vacancies_bow = top_vacancies_bow[['name', 'similarity', 'tittle_resume', 'alternate_url', 'resume_url']]
         top_vacancies_bow.to_csv('./AnalysisVR/bd_bot/bowords.csv')
+        top_vacancies_bow.to_csv('./TelegramBot/bd_bot/bowords.csv')
         return top_vacancies_bow

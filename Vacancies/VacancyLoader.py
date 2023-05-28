@@ -98,8 +98,7 @@ class VacancyLoader:
             lambda x: x.get("name", np.nan) if isinstance(x, dict) else np.nan)
         self.tabdict['skills'] = self.tabdict.get('skills').apply(lambda lst: ', '.join([d['name'] for d in lst]))
         self.tabdict['published_at'] = pd.to_datetime(self.tabdict.get('published_at')).dt.date
-        # self.tabdict.to_csv('./bd/all_vacancies.csv', index=False)
-        self.tabdict.to_csv('./bd/test.csv', index=False)
+        self.tabdict.to_csv('./bd/all_vacancies.csv', index=False)
         return self.tabdict
 
     def main(self):

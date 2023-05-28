@@ -72,4 +72,5 @@ class Word2VecVectorizer:
         print(top_vacancies)
         top_vacancies = top_vacancies[['name', 'similarity', 'tittle_resume', 'alternate_url', 'resume_url']]
         top_vacancies.to_csv('./AnalysisVR/bd_bot/word2vec.csv')
+        top_vacancies.to_csv('./TelegramBot/bd_bot/word2vec.csv')
         return top_vacancies

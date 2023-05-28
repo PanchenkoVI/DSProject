@@ -60,4 +60,5 @@ class TfidfVectorizerCustom(BaseEstimator, TransformerMixin,):
         print(top_vacancies)
         top_vacancies = top_vacancies[['name', 'similarity', 'tittle_resume', 'alternate_url', 'resume_url']]
         top_vacancies.to_csv('./AnalysisVR/bd_bot/tfidf.csv')
+        top_vacancies.to_csv('./TelegramBot/bd_bot/tfidf.csv')
         return top_vacancies

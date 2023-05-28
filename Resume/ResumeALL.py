@@ -112,5 +112,5 @@ class Resume:
         all_resume_data = pd.concat(resume_dataframes, ignore_index=True)
         all_resume_data = all_resume_data[all_resume_data['name'] != '']
         all_resume_data['ID'] = all_resume_data.get('link').apply(lambda row: re.search(r'\d+', row).group())
-        all_resume_data.to_csv('./bd/all_resume_test.csv',index=False)
+        all_resume_data.to_csv('./bd/all_resume.csv',index=False)
         return all_resume_data
