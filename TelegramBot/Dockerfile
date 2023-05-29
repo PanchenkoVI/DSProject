@@ -7,7 +7,7 @@ COPY package*.json ./
 RUN npm ci
 # RUN npm i -D nodemon cross-env
 # RUN npm i telegraf config
-# RUN npm install csv-parser
+RUN npm install csvtojson
 RUN npm i axios fluent-ffmpeg @ffmpeg-installer/ffmpeg
 # RUN npm install openai
 
