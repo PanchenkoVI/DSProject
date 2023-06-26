@@ -1,44 +1,40 @@
-# Первая версия проекта.
 # Если хотете скачать вакансии с сайта hh.ru.
 lv:
-	python3 main.py --load_vacancy all 
+	python3 ./Back/main.py --load_vacancy all 
 
 # Если хотите скачать только одно резюме.
 lro:
-	python3 main.py --load_resume one
+	python3 ./Back/main.py --load_resume one
 
 # Если хотите скачать больше одного резюме.
 lrm:
-	python3 main.py --load_resume more
+	python3 ./Back/main.py --load_resume more
 
 # Для предобработки одного резюме.
-tpor:
-	python3 main.py --text_preprocessor one_resume
+tp:
+	python3 ./Back/main.py --text_preprocessor tp
 
-# Для предобработки множества резюме.
-tpmo:
-	python3 main.py --text_preprocessor more_resumes
+# Для запуска моделей
+model:
+	python3 ./Back/main.py --load_model model
 
-# Для предобработки множества вакансий.
-tpv:
-	python3 main.py --text_preprocessor vacancyes
+# Запуск тестового бота для разработки новых фич
+startdev:
+	cd ./Front && npm run dev
 
-# Для запуска модели Tfidf.
-tfidf:
-	python3 main.py --load_model tfidf
+# Запуск бота для ПРОМа
+startprod:
+	cd ./Front && npm run prod
 
-# Для запуска модели BoW.
-bow:
-	python3 main.py --load_model bow
+# Для использования на сервере или в других средах
+# build:
+# 	docker build  -t tgbot .
 
-# Для запуска модели Word2Vec.
-w2v:
-	python3 main.py --load_model w2v
+# run:
+# 	docker run -d -p 3000:3000 --name tgbot --rm tgbot
+	
+# stop:
+# 	docker stop tgbot
 
-# Для запуска модели DistilBert.
-db:
-	python3 main.py --load_model dbert
-
-# Для активации телеграм-бота.
-botver1:
-	sh ./TelegramBot/config/bot_run.sh
+# vim ~/.bash_profile
+# source ~/.bash_profile
